@@ -1,0 +1,58 @@
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {useState} from 'react';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import casca from './css/estilo';
+
+export default function App(){
+
+  const [peso,setPeso] = useState();
+  const [altura,setAltura] = useState();
+  const [resultado,setResultado] = useState();
+
+  function Calcular(){
+
+    var valor = parseFloat(peso) / (parseFloat(altura) * parseFloat(altura));
+
+    setResultado(valor);
+
+    if(valor < 18.5){
+      alert("Abaixo do peso");
+    }else if(valor < 25){
+      alert("Peso normal");
+    }else{
+      alert("Acima do peso");
+    }
+  }
+
+  return (
+    <View style={casca.container}>
+
+      <Text style={casca.paragraph}>
+        Sistema IHC
+      </Text>
+
+      <View style={casca.cx1}>
+
+        <TextInput style={casca.caixas}
+          placeholder="Digite seu peso"
+          value={peso}
+          onChangeText={setPeso}/>
+
+        <TextInput style={casca.caixas}
+          placeholder="Digite sua altura (ex: 1.80)"
+          value={altura}
+          onChangeText={setAltura} />
+
+        <Text style={casca.textotoal}>IMC</Text>
+
+        <TextInput style={casca.cxtotal}
+          value={String(resultado)}/>
+
+        <TouchableOpacity style={casca.calculadora} onPress={Calcular}>
+          <AntDesign name="calculator" size={24} color="black" />
+        </TouchableOpacity>
+
+      </View>
+    </View>
+  );
+}
